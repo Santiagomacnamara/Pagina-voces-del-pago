@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voces del Pago · RPG 2D de folklore rioplatense</title>
+<meta name="description" content="Voces del Pago es un RPG 2D en desarrollo ambientado en el folklore del Río de la Plata.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Oswald:wght@400;500&family=Spectral:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--tinta:#14100d;--tinta2:#1d1813;--papel:#e9dcc0;--papel2:#b9ab8d;--sangre:#9a2222;--musgo:#3d4d2f;--laton:#c19a53;
+--serif:"IM Fell English","Times New Roman",serif;--cuerpo:"Spectral",Georgia,serif;--cond:"Oswald","Arial Narrow",sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--tinta);color:var(--papel);font:400 1.05rem/1.7 var(--cuerpo)}
+img{display:block;max-width:100%;image-rendering:pixelated}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--laton);outline-offset:3px}
+.wrap{width:min(1100px,92vw);margin-inline:auto}
+
+/* barra */
+header{position:fixed;inset:0 0 auto;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:.8rem 4vw;background:linear-gradient(#14100dee,#14100d00)}
+header .marca{font:1.35rem var(--serif);text-decoration:none}
+nav{display:flex;gap:1.6rem}
+nav a{font:500 .95rem var(--cond);letter-spacing:.06em;text-decoration:none;padding:.2rem 0;border-bottom:2px solid transparent}
+nav a:hover{border-color:var(--sangre)}
+
+/* portada */
+.hero{position:relative;min-height:100svh;display:grid;align-content:end;padding:0 4vw 7rem;overflow:hidden}
+.fondo{position:absolute;inset:0;background-size:cover;background-position:center;image-rendering:pixelated;opacity:0;transition:opacity 1s}
+.fondo.on{opacity:1}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 70%,#14100d99,#14100df2 75%),linear-gradient(#14100d00 55%,var(--tinta))}
+.hero>*{position:relative;z-index:2}
+.hero h1{font:400 clamp(3.4rem,11vw,9rem)/.95 var(--serif);text-shadow:0 4px 30px #000}
+.hero p{max-width:34rem;margin:1.2rem 0 2rem;color:var(--papel2);font-size:1.2rem}
+.btn{display:inline-block;font:500 1rem var(--cond);letter-spacing:.08em;text-decoration:none;padding:.8rem 2rem;background:var(--sangre);border:1px solid #c64444;transition:background .2s}
+.btn:hover{background:#b82c2c}
+.selector{position:absolute;right:4vw;bottom:2.2rem;display:flex;gap:.6rem;align-items:center;z-index:3}
+.selector span{font:500 .8rem var(--cond);letter-spacing:.1em;color:var(--papel2);margin-right:.4rem}
+.selector button{width:74px;height:44px;border:2px solid #ffffff44;background-size:cover;background-position:center;cursor:pointer;image-rendering:pixelated;padding:0}
+.selector button[aria-pressed=true]{border-color:var(--sangre)}
+.scroll{position:absolute;left:4vw;bottom:2rem;z-index:3;font:500 .8rem var(--cond);letter-spacing:.2em;display:flex;align-items:center;gap:.8rem}
+.scroll i{display:block;width:1px;height:46px;background:var(--papel2);animation:baja 2s infinite;transform-origin:top}
+@keyframes baja{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* secciones */
+section{padding:6.5rem 0}
+h2{font:400 clamp(2.2rem,5vw,3.6rem)/1.1 var(--serif);margin-bottom:2.2rem;display:flex;align-items:center;gap:1.2rem}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--sangre),transparent)}
+
+.intro{display:grid;grid-template-columns:1fr 1.1fr;gap:3.5rem;align-items:center}
+.intro p+p{margin-top:1rem;color:var(--papel2)}
+.intro figure{border:1px solid #ffffff22;padding:.5rem;background:var(--tinta2)}
+.intro figcaption,.galeria figcaption{font:.85rem var(--cond);letter-spacing:.05em;color:var(--papel2);padding-top:.5rem}
+
+/* novedades */
+.noticias{background:var(--tinta2)}
+.noticias ul{list-style:none;padding:0}
+.noticias li{display:grid;grid-template-columns:9rem 1fr;gap:1.5rem;align-items:baseline;padding:1.2rem 0;border-bottom:1px solid #ffffff1c}
+.etiqueta{font:500 .85rem var(--cond);letter-spacing:.08em;color:var(--laton);border:1px solid var(--laton);text-align:center;padding:.15rem .6rem}
+.noticias li b{font-weight:500}
+.noticias li span.d{display:block;color:var(--papel2);font-size:.95rem}
+
+/* sistemas */
+.sistemas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+.sistema{border-top:3px solid var(--sangre);background:var(--tinta2);display:flex;flex-direction:column}
+.sistema img{aspect-ratio:16/9;object-fit:cover;width:100%}
+.sistema div{padding:1.2rem 1.3rem 1.5rem}
+.sistema h3{font:400 1.6rem var(--serif);margin-bottom:.4rem}
+.sistema p{font-size:.98rem;color:var(--papel2);line-height:1.6}
+
+/* galería */
+.filtros{display:flex;gap:.6rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.filtros button{font:500 .95rem var(--cond);letter-spacing:.06em;color:var(--papel);background:none;border:1px solid #ffffff33;padding:.45rem 1.2rem;cursor:pointer}
+.filtros button[aria-pressed=true]{background:var(--sangre);border-color:var(--sangre)}
+.galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem}
+.galeria figure[hidden]{display:none}
+.galeria button{all:unset;cursor:zoom-in;display:block;width:100%}
+.galeria img{aspect-ratio:16/9;object-fit:cover;width:100%;border:1px solid #ffffff1c;transition:transform .25s,border-color .25s}
+.galeria button:hover img{transform:scale(1.02);border-color:var(--laton)}
+dialog{border:0;background:#000000ee;max-width:none;max-height:none;width:100%;height:100%;padding:3vw}
+dialog::backdrop{background:#000}
+dialog[open]{display:grid;place-items:center}
+dialog img{max-height:86vh;width:auto;max-width:94vw;margin:auto}
+dialog button{position:absolute;top:1rem;right:1.4rem;font:2rem var(--serif);color:var(--papel);background:none;border:0;cursor:pointer}
+
+.descarga{background:var(--tinta2)}
+.caja{display:flex;flex-wrap:wrap;gap:2rem;align-items:center;justify-content:space-between;border:1px solid #ffffff22;border-left:3px solid var(--sangre);background:var(--tinta);padding:2rem 2.2rem}
+.caja h3{font:400 1.7rem var(--serif);margin-bottom:.4rem}
+.caja p{color:var(--papel2);max-width:34rem}
+.caja .meta{font:500 .85rem var(--cond);letter-spacing:.06em;color:var(--laton);margin-top:.8rem}
+
+/* desarrolladores */
+.devs{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:center}
+.devs p{color:var(--papel2)}
+.devs p+p{margin-top:1rem}
+.github{display:flex;flex-direction:column;gap:.6rem;text-decoration:none;border:1px solid #ffffff22;background:var(--tinta2);padding:1.6rem 1.8rem;transition:border-color .2s}
+.github:hover{border-color:var(--laton)}
+.github b{font:400 1.5rem var(--serif)}
+.github span{color:var(--papel2);font-size:.95rem}
+.github em{font:500 .9rem var(--cond);letter-spacing:.06em;color:var(--laton);font-style:normal}
+@media(max-width:760px){.devs{grid-template-columns:1fr}}
+footer{border-top:1px solid #ffffff1c;padding:3.5rem 0;text-align:center;color:var(--papel2)}
+footer strong{display:block;font:1.8rem var(--serif);color:var(--papel);margin-bottom:.4rem;font-weight:400}
+
+@media(max-width:760px){nav{display:none}.intro{grid-template-columns:1fr}.noticias li{grid-template-columns:1fr;gap:.4rem}.selector{position:static;margin-top:2rem}.scroll{display:none}.hero{padding-bottom:3rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="marca" href="#inicio">Voces del Pago</a>
+  <nav aria-label="Principal">
+    <a href="#historia">Historia</a><a href="#novedades">Novedades</a><a href="#sistemas">Sistemas</a><a href="#galeria">Galería</a><a href="#descarga">Descarga</a><a href="#desarrolladores">Desarrolladores</a>
+  </nav>
+</header>
+
+<main id="inicio">
+<div class="hero">
+  <div class="fondo on" style="background-image:url(imagenes/bosque2.png)"></div>
+  <div class="fondo" style="background-image:url(imagenes/plaza.png)"></div>
+  <div class="fondo" style="background-image:url(imagenes/aldea.png)"></div>
+  <div class="fondo" style="background-image:url(imagenes/taberna.png)"></div>
+  <h1>Voces<br>del Pago</h1>
+  <p>Un RPG 2D en desarrollo, ambientado en el folklore del Río de la Plata. Explorá el pago, hablá con su gente y enfrentá lo que se esconde en el monte.</p>
+  <div><a class="btn" href="#historia">CONOCER EL JUEGO</a></div>
+  <div class="scroll"><i></i>SCROLL</div>
+</div>
+
+<section id="historia">
+  <section id="descarga" class="descarga">
+  <div class="wrap">
+    <h2>Descarga</h2>
+    <div class="caja">
+      <div>
+        <h3>Voces del Pago · Versión de prueba</h3>
+        <p>Descargá el ejecutable y jugá lo que hay hasta ahora. El juego está en desarrollo, así que puede cambiar y tener errores.</p>
+        <p class="meta">Versión 1.0 · Windows</p>
+      </div>
+      <a class="btn" href="descargas/voces del pago.rar" download>DESCARGAR PARA WINDOWS</a>
+    </div>
+  </div>
+</section>
+
+<section id="desarrolladores">
+  <div class="wrap">
+    <h2>Desarrolladores</h2>
+    <div class="devs">
+      <div>
+        <p>Voces del Pago lo desarrolla Pingus Ludo, un equipo que trabaja en videojuegos, software, arte digital, servicios editoriales y capacitación.</p>
+        <p>El juego está hecho en Godot 4. Podés seguir el avance del proyecto y ver el código en GitHub.</p>
+      </div>
+      <a class="github" href="https://github.com/elcricoso3000/Grupo2_Juego_ESTFA_2026.git" target="_blank" rel="noopener">
+        <b>Voces del Pago en GitHub</b>
+        <span>Código fuente, avances y registro de cambios.</span>
+        <em>VISITAR REPOSITORIO</em>
+      </a>
+    </div>
+  </div>
+</section>
+  <div class="wrap intro">
+    <div>
+      <h2>Historia</h2>
+      <p>Voces del Pago es un RPG de vista cenital que transcurre en un pago rioplatense donde las leyendas dejan de ser cuentos. Caminás por plazas, casas y caminos de monte; cada lugar guarda gente que habla y cosas que conviene no ignorar.</p>
+      <p>El juego combina exploración, combates por turnos, diálogos con los habitantes, inventario, misiones y partidas guardadas, sobre una base pensada para crecer.</p>
+    </div>
+    <figure>
+      <img src="imagenes/titulo.png" alt="Menú principal de Voces del Pago con las opciones Jugar, Opciones y Salir" width="1153" height="647">
+      <figcaption>Menú principal</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="novedades" class="noticias">
+  <div class="wrap">
+    <h2>Novedades</h2>
+    <ul>
+      <li><span class="etiqueta">COMBATE</span><div><b>Combate por turnos en marcha</b><span class="d">Atacar, Habilidad, Objeto y Huir ya tienen su menú en la pantalla de batalla.</span></div></li>
+      <li><span class="etiqueta">DIÁLOGO</span><div><b>Hablar con los vecinos del pago</b><span class="d">Acercate a un personaje, apretá E y se abre su cuadro de texto.</span></div></li>
+      <li><span class="etiqueta">MINIJUEGO</span><div><b>El Truco llega al juego</b><span class="d">Un rival, un mazo español y una mesa esperando en el pago.</span></div></li>
+      <li><span class="etiqueta">PARTIDAS</span><div><b>Guardado persistente</b><span class="d">Tres ranuras para cargar, empezar de nuevo o eliminar tu progreso.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section id="sistemas">
+  <div class="wrap">
+    <h2>Sistemas</h2>
+    <div class="sistemas">
+      <article class="sistema"><img src="imagenes/combate.png" alt="Pantalla de combate contra la Sombra del monte" loading="lazy"><div><h3>Combate</h3><p>Duelos por turnos, uno contra uno: elegí entre atacar, usar una habilidad, un objeto o huir.</p></div></article>
+      <article class="sistema"><img src="imagenes/taberna.png" alt="Taberna con personajes marcados para conversar" loading="lazy"><div><h3>Diálogos</h3><p>Los habitantes del pago te hablan cuando te acercás. Los signos de exclamación marcan con quién conversar.</p></div></article>
+      <article class="sistema"><img src="imagenes/guardado.png" alt="Pantalla de selección de partidas guardadas" loading="lazy"><div><h3>Partidas</h3><p>Tu avance queda guardado en el dispositivo, con ranuras para volver cuando quieras.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="galeria" style="padding-top:0">
+  <div class="wrap">
+    <h2>Galería</h2>
+    <div class="filtros" role="group" aria-label="Filtrar imágenes">
+      <button aria-pressed="true" data-f="todo">Todo</button>
+      <button aria-pressed="false" data-f="exterior">Exteriores</button>
+      <button aria-pressed="false" data-f="interior">Interiores</button>
+      <button aria-pressed="false" data-f="sistema">Pantallas</button>
+    </div>
+    <div class="galeria">
+      <figure data-c="exterior"><button><img src="imagenes/plaza.png" alt="Plaza frente a un edificio de piedra" loading="lazy"></button><figcaption>La plaza</figcaption></figure>
+      <figure data-c="exterior"><button><img src="imagenes/aldea.png" alt="Aldea con casas de techo de paja y un pozo" loading="lazy"></button><figcaption>El pueblo</figcaption></figure>
+      <figure data-c="exterior"><button><img src="imagenes/serpiente.png" alt="Estatua de una serpiente enroscada" loading="lazy"></button><figcaption>Centro</figcaption></figure>
+      <figure data-c="exterior"><button><img src="imagenes/bosque1.png" alt="Camino de tierra junto a un pinar" loading="lazy"></button><figcaption>Bosque parte 1</figcaption></figure>
+      <figure data-c="exterior"><button><img src="imagenes/bosque2.png" alt="Pinar con cerezos y un pozo en el camino" loading="lazy"></button><figcaption>Bosque parte 2</figcaption></figure>
+      <figure data-c="exterior"><button><img src="imagenes/bosque3.png" alt="Sendero hacia una cabaña oscura" loading="lazy"></button><figcaption>Bosque parte 3</figcaption></figure>
+      <figure data-c="exterior"><button><img src="imagenes/pozo.png" alt="Escalera que baja por un pozo" loading="lazy"></button><figcaption>Subterraneo</figcaption></figure>
+      <figure data-c="exterior"><button><img src="imagenes/cueva.png" alt="Cueva oscura y húmeda" loading="lazy"></button><figcaption>Bajo tierra</figcaption></figure>
+      <figure data-c="interior"><button><img src="imagenes/taberna.png" alt="Taberna con mesas y un reloj de pie" loading="lazy"></button><figcaption>La taberna</figcaption></figure>
+      <figure data-c="interior"><button><img src="imagenes/casa.png" alt="Interior de una casa con mesa y sillón" loading="lazy"></button><figcaption>Una casa del pago</figcaption></figure>
+      <figure data-c="interior"><button><img src="imagenes/salon.png" alt="Salón con alfombra y muebles revueltos" loading="lazy"></button><figcaption>Casa Mila</figcaption></figure>
+      <figure data-c="interior"><button><img src="imagenes/cocina.png" alt="Cocina con barriles y utensilios" loading="lazy"></button><figcaption>Casa abandonada</figcaption></figure>
+      <figure data-c="interior"><button><img src="imagenes/comedor.png" alt="Comedor con una mesa redonda" loading="lazy"></button><figcaption>El comedor</figcaption></figure>
+      <figure data-c="sistema"><button><img src="imagenes/titulo.png" alt="Menú principal" loading="lazy"></button><figcaption>Menú principal</figcaption></figure>
+      <figure data-c="sistema"><button><img src="imagenes/guardado.png" alt="Selección de partidas" loading="lazy"></button><figcaption>Partidas guardadas</figcaption></figure>
+      <figure data-c="sistema"><button><img src="imagenes/combate.png" alt="Pantalla de combate" loading="lazy"></button><figcaption>Combate</figcaption></figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <strong>Voces del Pago</strong>
+  Un proyecto de Pingus Ludo · En desarrollo
+</footer>
+
+<dialog id="visor" aria-label="Imagen ampliada"><button aria-label="Cerrar">×</button><img alt=""></dialog>
+
+<script>
+// Selector de fondo de portada
+const fondos=[...document.querySelectorAll('.fondo')],miniaturas=[...document.querySelectorAll('.selector button')];
+miniaturas.forEach((b,i)=>b.addEventListener('click',()=>{
+  fondos.forEach((f,j)=>f.classList.toggle('on',i===j));
+  miniaturas.forEach((m,j)=>m.setAttribute('aria-pressed',i===j));
+}));
+// Filtros de galería
+const botones=[...document.querySelectorAll('.filtros button')],figuras=[...document.querySelectorAll('.galeria figure')];
+botones.forEach(b=>b.addEventListener('click',()=>{
+  botones.forEach(x=>x.setAttribute('aria-pressed',x===b));
+  figuras.forEach(f=>f.hidden=b.dataset.f!=='todo'&&f.dataset.c!==b.dataset.f);
+}));
+// Visor ampliado
+const visor=document.getElementById('visor'),vi=visor.querySelector('img');
+figuras.forEach(f=>f.querySelector('button').addEventListener('click',()=>{const i=f.querySelector('img');vi.src=i.src;vi.alt=i.alt;visor.showModal()}));
+visor.addEventListener('click',()=>visor.close());
+</script>
+</body>
+</html>
