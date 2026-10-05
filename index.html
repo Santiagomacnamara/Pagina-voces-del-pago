@@ -44,6 +44,28 @@ nav a:hover{border-color:var(--sangre)}
 .scroll i{display:block;width:1px;height:46px;background:var(--papel2);animation:baja 2s infinite;transform-origin:top}
 @keyframes baja{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
 
+/* preguntas frecuentes */
+.faq{background:var(--tinta2)}
+.faq details{border-bottom:1px solid #ffffff1c}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:1.3rem 0;font:500 1.1rem var(--cond);letter-spacing:.04em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:1.8rem var(--serif);color:var(--laton);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--laton)}
+.faq details p{color:var(--papel2);padding:0 3rem 1.4rem 0;max-width:46rem}
+
+/* equipo */
+.equipo{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.2rem;margin-bottom:2.5rem}
+.miembro{background:var(--tinta2);border-top:3px solid var(--sangre);padding:1.6rem 1.3rem;text-align:center}
+.miembro .ini{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 1rem;border:1px solid var(--laton);border-radius:50%;font:1.5rem var(--serif);color:var(--laton)}
+.miembro b{display:block;font:400 1.25rem var(--serif);margin-bottom:.2rem}
+.miembro span{font:500 .85rem var(--cond);letter-spacing:.08em;color:var(--papel2);text-transform:uppercase}
+.sobre{max-width:46rem;color:var(--papel2);margin-bottom:2.2rem}
+.github{display:inline-flex;flex-direction:column;gap:.4rem;text-decoration:none;border:1px solid #ffffff22;background:var(--tinta2);padding:1.3rem 1.8rem;transition:border-color .2s}
+.github:hover{border-color:var(--laton)}
+.github b{font:400 1.4rem var(--serif)}
+.github span{color:var(--papel2);font-size:.95rem}
+.github em{font:500 .9rem var(--cond);letter-spacing:.06em;color:var(--laton);font-style:normal}
 /* secciones */
 section{padding:6.5rem 0}
 h2{font:400 clamp(2.2rem,5vw,3.6rem)/1.1 var(--serif);margin-bottom:2.2rem;display:flex;align-items:center;gap:1.2rem}
@@ -113,7 +135,7 @@ footer strong{display:block;font:1.8rem var(--serif);color:var(--papel);margin-b
 <header>
   <a class="marca" href="#inicio">Voces del Pago</a>
   <nav aria-label="Principal">
-    <a href="#historia">Historia</a><a href="#novedades">Novedades</a><a href="#sistemas">Sistemas</a><a href="#galeria">Galería</a><a href="#descarga">Descarga</a><a href="#desarrolladores">Desarrolladores</a>
+    <a href="#historia">Historia</a><a href="#novedades">Novedades</a><a href="#sistemas">Sistemas</a><a href="#galeria">Galería</a><a href="#descarga">Descarga</a><a href="#preguntas">Preguntas</a><a href="#desarrolladores">Desarrolladores</a>
   </nav>
 </header>
 
@@ -141,6 +163,28 @@ footer strong{display:block;font:1.8rem var(--serif);color:var(--papel);margin-b
       </div>
       <a class="btn" href="descargas/voces del pago.rar" download>DESCARGAR PARA WINDOWS</a>
     </div>
+  </div>
+</section>
+
+<section id="preguntas" class="faq">
+  <div class="wrap">
+    <h2>Preguntas frecuentes</h2>
+    <details>
+      <summary>¿Necesito internet para jugar la versión?</summary>
+      <p>No. La versión actual guarda el progreso de forma local, en archivos .cfg dentro de la carpeta del juego.</p>
+    </details>
+    <details>
+      <summary>¿Cuántas partidas puedo tener guardadas al mismo tiempo?</summary>
+      <p>Hasta 3 partidas simultáneas, una por cada slot (slot1, slot2 y slot3).</p>
+    </details>
+    <details>
+      <summary>¿Qué pasa si elimino una partida por error?</summary>
+      <p>La eliminación es permanente.</p>
+    </details>
+    <details>
+      <summary>¿Puedo cambiar el nombre de una partida ya creada?</summary>
+      <p>En la versión actual el nombre se define únicamente al crear la partida (Nueva partida). Cambiarlo luego de creada no está disponible en esta versión.</p>
+    </details>
   </div>
 </section>
 
@@ -223,6 +267,24 @@ footer strong{display:block;font:1.8rem var(--serif);color:var(--papel);margin-b
       <figure data-c="sistema"><button><img src="imagenes/guardado.png" alt="Selección de partidas" loading="lazy"></button><figcaption>Partidas guardadas</figcaption></figure>
       <figure data-c="sistema"><button><img src="imagenes/combate.png" alt="Pantalla de combate" loading="lazy"></button><figcaption>Combate</figcaption></figure>
     </div>
+  </div>
+</section>
+<section id="desarrolladores">
+  <div class="wrap">
+    <h2>Desarrolladores</h2>
+    <p class="sobre">Voces del Pago lo desarrolla Pingus Ludo, un equipo que trabaja en videojuegos, software, arte digital, servicios editoriales y capacitación. Esta es la gente que lo hace posible.</p>
+    <div class="equipo">
+      <div class="miembro"><div class="ini">SM</div><b>Santiago Mac Namara</b><span>Developer</span></div>
+      <div class="miembro"><div class="ini">LM</div><b>Lionel Martinez</b><span>Developer</span></div>
+      <div class="miembro"><div class="ini">MK</div><b>Melisa Kuras</b><span>UX/UI</span></div>
+      <div class="miembro"><div class="ini">NA</div><b>Nicolas Abrahan</b><span>Project manager</span></div>
+      <div class="miembro"><div class="ini">EC</div><b>Elian Colombo</b><span>Base de datos</span></div>
+    </div>
+    <a class="github" href="https://github.com/elcricoso3000/Grupo2_Juego_ESTFA_2026" target="_blank" rel="noopener">
+      <b>Voces del Pago en GitHub</b>
+      <span>Código fuente, avances y registro de cambios.</span>
+      <em>VISITAR REPOSITORIO</em>
+    </a>
   </div>
 </section>
 </main>
