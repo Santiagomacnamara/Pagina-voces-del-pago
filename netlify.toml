@@ -1,0 +1,3 @@
+[build]
+  # The site's index.html lives in this subfolder, not at the repository root
+  publish = "Pagina voces del pago"
